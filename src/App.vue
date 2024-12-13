@@ -41,26 +41,52 @@ onMounted(() => {
           class="recipe"
           v-for="recipe of recipesStore.recipes"
           :key="recipe.id"
-          v-if="recipesStore.searching === false">
+          v-if="recipesStore.searching === false"
+      >
         <img :src="recipe.image" alt="recipeImage" width="10%" height="auto">
         <span>Number: {{ recipe.id }}</span>
         <span>{{ recipe.name }}</span>
         <button @click="">Remove</button>
+        <!-- TODO: remove action -->
         <span
             v-for="recipeIngredient of recipe.ingredients"
             :key="recipeIngredient.id">
-        {{ recipeIngredient }},
+          {{ recipeIngredient }},
         </span>
         <span
             v-for="recipeInstruction of recipe.instructions"
             :key="recipeInstruction.id">
-        {{ recipeInstruction }}
+          {{ recipeInstruction }}
         </span>
         <span>Preparation time(minutes): {{ recipe.prepTimeMinutes }}</span>
         <span>Cooking time(minutes): {{ recipe.cookTimeMinutes }}</span>
       </div>
       <div v-else>
-        { recipesStore.searchingRecipes }}        {
+        <!-- TODO: сделать стили -->
+        <div
+            v-for="favouriteSearchedRecipe of recipesStore.searchingRecipes"
+            :key="favouriteSearchedRecipe.id"
+        >
+          <img :src="favouriteSearchedRecipe.image" alt="recipeImage" width="10%" height="auto">
+          <span>Number: {{ favouriteSearchedRecipe.id }}</span>
+          <span>{{ favouriteSearchedRecipe.name }}</span>
+          <button @click="">Remove</button>
+          <!-- TODO: remove action -->
+          <span
+              v-for="recipeIngredient of favouriteSearchedRecipe.ingredients"
+              :key="recipeIngredient.id"
+          >
+            {{ recipeIngredient }},
+          </span>
+          <span
+              v-for="recipeInstruction of favouriteSearchedRecipe.instructions"
+              :key="recipeInstruction.id"
+          >
+            {{ recipeInstruction }}
+          </span>
+          <span>Preparation time(minutes): {{ favouriteSearchedRecipe.prepTimeMinutes }}</span>
+          <span>Cooking time(minutes): {{ favouriteSearchedRecipe.cookTimeMinutes }}</span>
+        </div>
       </div>
     </div>
     <div class="searchItems" v-else>
@@ -70,19 +96,22 @@ onMounted(() => {
       <div
           class="searchedItem"
           v-for="searchedItem of searchStore.recipes"
-          :key="searchedItem.id">
+          :key="searchedItem.id"
+      >
         <img :src="searchedItem.image" alt="recipeImage" width="10%" height="auto">
         <span>Number: {{ searchedItem.id }}</span>
         <span>{{ searchedItem.name }}</span>
         <button @click="searchStore.addRecipe(searchedItem)">Add</button>
         <span
             v-for="searchedItemIngredient of searchedItem.ingredients"
-            :key="searchedItemIngredient.id">
+            :key="searchedItemIngredient.id"
+        >
           {{ searchedItemIngredient }},
         </span>
         <span
             v-for="searchedItemInstruction of searchedItem.instructions"
-            :key="searchedItemInstruction.id">
+            :key="searchedItemInstruction.id"
+        >
           {{ searchedItemInstruction }}
         </span>
         <span>Preparation time(minutes): {{ searchedItem.prepTimeMinutes }}</span>
