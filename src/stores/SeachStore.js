@@ -22,6 +22,7 @@ export const useSearchStore = defineStore("SearchStore", {
         },
         addRecipe(recipe){
             useRecipesStore().recipes.push(recipe)
+            // TODO: сделать валидацию, чтобы нельзя было добавить одинаковый
         },
     },
     getters: {

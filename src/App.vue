@@ -41,7 +41,7 @@ onMounted(() => {
           class="recipe"
           v-for="recipe of recipesStore.recipes"
           :key="recipe.id"
-          v-if="recipesStore.loading === false">
+          v-if="recipesStore.searching === false">
         <img :src="recipe.image" alt="recipeImage" width="10%" height="auto">
         <span>Number: {{ recipe.id }}</span>
         <span>{{ recipe.name }}</span>
@@ -60,35 +60,35 @@ onMounted(() => {
         <span>Cooking time(minutes): {{ recipe.cookTimeMinutes }}</span>
       </div>
       <div v-else>
-        // сделать сюда хуйню карточку итерируемую по searchingRecipes эту стандартную как там и там и всё нихуя себе правда потом еще как-то реализовать ремув и завести бы вью-роутер либо уже в другой проект, мб надо проект на вью икс, с файрбейс мб авторизацию, админку
+        { recipesStore.searchingRecipes }}        {
       </div>
     </div>
-  <div class="searchItems" v-else>
-    <div class="searchInput">
-      <input type="search" v-model="searchText" @input="searchStore.getRecipes(searchText)">
+    <div class="searchItems" v-else>
+      <div class="searchInput">
+        <input type="search" v-model="searchText" @input="searchStore.getRecipes(searchText)">
+      </div>
+      <div
+          class="searchedItem"
+          v-for="searchedItem of searchStore.recipes"
+          :key="searchedItem.id">
+        <img :src="searchedItem.image" alt="recipeImage" width="10%" height="auto">
+        <span>Number: {{ searchedItem.id }}</span>
+        <span>{{ searchedItem.name }}</span>
+        <button @click="searchStore.addRecipe(searchedItem)">Add</button>
+        <span
+            v-for="searchedItemIngredient of searchedItem.ingredients"
+            :key="searchedItemIngredient.id">
+          {{ searchedItemIngredient }},
+        </span>
+        <span
+            v-for="searchedItemInstruction of searchedItem.instructions"
+            :key="searchedItemInstruction.id">
+          {{ searchedItemInstruction }}
+        </span>
+        <span>Preparation time(minutes): {{ searchedItem.prepTimeMinutes }}</span>
+        <span>Cooking time(minutes): {{ searchedItem.cookTimeMinutes }}</span>
+      </div>
     </div>
-    <div
-        class="searchedItem"
-        v-for="searchedItem of searchStore.recipes"
-        :key="searchedItem.id">
-      <img :src="searchedItem.image" alt="recipeImage" width="10%" height="auto">
-      <span>Number: {{ searchedItem.id }}</span>
-      <span>{{ searchedItem.name }}</span>
-      <button @click="searchStore.addRecipe(searchedItem)">Add</button>
-      <span
-          v-for="searchedItemIngredient of searchedItem.ingredients"
-          :key="searchedItemIngredient.id">
-        {{ searchedItemIngredient }},
-      </span>
-      <span
-          v-for="searchedItemInstruction of searchedItem.instructions"
-          :key="searchedItemInstruction.id">
-        {{ searchedItemInstruction }}
-      </span>
-      <span>Preparation time(minutes): {{ searchedItem.prepTimeMinutes }}</span>
-      <span>Cooking time(minutes): {{ searchedItem.cookTimeMinutes }}</span>
-    </div>
-  </div>
   </body>
 </template>
 
