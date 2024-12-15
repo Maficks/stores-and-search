@@ -34,7 +34,7 @@ onMounted(() => {
       </button>
     </div>
     <div class="recipes" v-if="recipesStore.activeTab === 1">
-      <div class="favouriteSearchInput">
+      <div class="searchInput">
         <input type="search" v-model="favouriteSearchText" @input="recipesStore.findRecipes(favouriteSearchText)">
       </div>
       <div
@@ -49,14 +49,19 @@ onMounted(() => {
         <button @click="recipesStore.deleteRecipe(recipe)">Remove</button>
         <span
             v-for="recipeIngredient of recipe.ingredients"
-            :key="recipeIngredient.id">
+            :key="recipeIngredient.id"
+            class="ingredients"
+        >
           {{ recipeIngredient }},
         </span>
+        <span class="gap"></span>
         <span
             v-for="recipeInstruction of recipe.instructions"
-            :key="recipeInstruction.id">
+            :key="recipeInstruction.id"
+        >
           {{ recipeInstruction }}
         </span>
+        <span class="gap"></span>
         <span>Preparation time(minutes): {{ recipe.prepTimeMinutes }}</span>
         <span>Cooking time(minutes): {{ recipe.cookTimeMinutes }}</span>
       </div>
@@ -77,23 +82,25 @@ onMounted(() => {
           >
             {{ recipeIngredient }},
           </span>
+          <span class="gap"></span>
           <span
               v-for="recipeInstruction of favouriteSearchedRecipe.instructions"
               :key="recipeInstruction.id"
           >
             {{ recipeInstruction }}
           </span>
+          <span class="gap"></span>
           <span>Preparation time(minutes): {{ favouriteSearchedRecipe.prepTimeMinutes }}</span>
           <span>Cooking time(minutes): {{ favouriteSearchedRecipe.cookTimeMinutes }}</span>
         </div>
       </div>
     </div>
-    <div class="searchItems" v-else>
+    <div class="recipes" v-else>
       <div class="searchInput">
         <input type="search" v-model="searchText" @input="searchStore.getRecipes(searchText)">
       </div>
       <div
-          class="searchedItem"
+          class="recipe"
           v-for="searchedItem of searchStore.recipes"
           :key="searchedItem.id"
       >
@@ -107,12 +114,14 @@ onMounted(() => {
         >
           {{ searchedItemIngredient }},
         </span>
+        <span class="gap"></span>
         <span
             v-for="searchedItemInstruction of searchedItem.instructions"
             :key="searchedItemInstruction.id"
         >
           {{ searchedItemInstruction }}
         </span>
+        <span class="gap"></span>
         <span>Preparation time(minutes): {{ searchedItem.prepTimeMinutes }}</span>
         <span>Cooking time(minutes): {{ searchedItem.cookTimeMinutes }}</span>
       </div>
@@ -163,7 +172,7 @@ button {
   margin: 0 1em;
 }
 .recipe {
-  margin-bottom: 1%;
+  margin-bottom: 2.5%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -172,22 +181,10 @@ button {
 .btn-green {
   background-color: limegreen;
 }
-.searchItems {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.recipe > * {
+  margin: 0.3%;
 }
-.searchedItem {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1%;
-}
-.favouriteSearchInput {
-  margin-bottom: 1%;
-  display: flex;
-  justify-content: center;
+.gap {
+  margin: 1%;
 }
 </style>
