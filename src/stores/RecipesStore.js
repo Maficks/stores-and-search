@@ -21,7 +21,12 @@ export const useRecipesStore = defineStore('RecipesStore', {
             this.searchingRecipes = this.recipes.filter((elem) => elem.name.toLowerCase().includes(search.toLowerCase()))
             search === '' ? this.searching = false : console.log(this.searchingRecipes)
             this.loading = false
+            // TODO: на лоадинг сделать анимацию загрузки можно
             // TODO: чтобы оптимизировать можно еще сделать таймаут на this.loading = false чтобы не нагружать на каждый символ вызывая, чтобы успеть вписать сколько-то символов, или даже скорее не на фолс, а в самом начале сделать таймаут на это же, чтобы не сразу начинались вычисления после каждого символа, да, так правильней даже
+        },
+        deleteRecipe(recipe){
+            this.searchingRecipes = this.recipes.filter((elem) => elem.name.toLowerCase() !== recipe.name.toLowerCase())
+            this.recipes = this.searchingRecipes
         }
     }
 })

@@ -46,8 +46,7 @@ onMounted(() => {
         <img :src="recipe.image" alt="recipeImage" width="10%" height="auto">
         <span>Number: {{ recipe.id }}</span>
         <span>{{ recipe.name }}</span>
-        <button @click="">Remove</button>
-        <!-- TODO: remove action -->
+        <button @click="recipesStore.deleteRecipe(recipe)">Remove</button>
         <span
             v-for="recipeIngredient of recipe.ingredients"
             :key="recipeIngredient.id">
@@ -62,16 +61,16 @@ onMounted(() => {
         <span>Cooking time(minutes): {{ recipe.cookTimeMinutes }}</span>
       </div>
       <div v-else>
-        <!-- TODO: сделать стили -->
+        <!-- TODO: сделать стилей еще-->
         <div
             v-for="favouriteSearchedRecipe of recipesStore.searchingRecipes"
             :key="favouriteSearchedRecipe.id"
+            class="recipe"
         >
           <img :src="favouriteSearchedRecipe.image" alt="recipeImage" width="10%" height="auto">
           <span>Number: {{ favouriteSearchedRecipe.id }}</span>
           <span>{{ favouriteSearchedRecipe.name }}</span>
-          <button @click="">Remove</button>
-          <!-- TODO: remove action -->
+          <button @click="recipesStore.deleteRecipe(favouriteSearchedRecipe)">Remove</button>
           <span
               v-for="recipeIngredient of favouriteSearchedRecipe.ingredients"
               :key="recipeIngredient.id"
