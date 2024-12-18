@@ -14,11 +14,13 @@ export const useSearchStore = defineStore("SearchStore", {
             const data = await res.json()
             this.recipes = data.recipes
             this.loader = false
+            // try catch finally
         },
         async getRecipesImmediately(){
             const res = await fetch(url)
             const data = await res.json()
             this.recipes = data.recipes
+            // try catch finally
         },
         addRecipe(recipe){
             useRecipesStore().recipes.push(recipe)
