@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useRecipesStore } from './RecipesStore.js'
+import { useRecipesStore } from './RecipesStore'
 const url = 'https://dummyjson.com/recipes' // попробовать заменить на url = new Request(ссылка)
 
 export const useSearchStore = defineStore("SearchStore", {

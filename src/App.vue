@@ -1,6 +1,6 @@
-<script setup>
-import { useRecipesStore } from './stores/RecipesStore.js'
-import { useSearchStore} from './stores/SeachStore.js'
+<script setup lang="ts">
+import { useRecipesStore } from './stores/RecipesStore'
+import { useSearchStore} from './stores/SeachStore'
 import { ref, onMounted } from 'vue'
 
 const recipesStore = useRecipesStore()
