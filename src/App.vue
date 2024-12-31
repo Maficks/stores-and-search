@@ -42,7 +42,7 @@ onMounted(() => {
             class="recipe"
             v-for="recipe of recipesStore.recipes"
             :key="recipe.id"
-            v-if="recipesStore.searching === false"
+            v-if="!recipesStore.searching"
         >
           <img :src="recipe.image" alt="recipeImage" width="30%" height="auto">
           <span>Number: {{ recipe.id }}</span>
