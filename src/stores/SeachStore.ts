@@ -7,6 +7,8 @@ export const useSearchStore = defineStore("SearchStore", {
     state: () => ({
         loader: false,
         recipes: [] as IRecipes['recipes'],
+        skip: 0,
+        pages: [],
     }),
     actions: {
         async getRecipes(search: string){
@@ -28,6 +30,22 @@ export const useSearchStore = defineStore("SearchStore", {
             useRecipesStore().recipes.push(recipe)
             // TODO: сделать валидацию, чтобы нельзя было добавить одинаковый
         },
+        async getPaginatedRecipesImmediately(){
+            let preferableAmount:number = 0
+            if (screen.width >= 1080){
+                preferableAmount = 9
+            } else {
+                preferableAmount = 8
+            }
+            console.log(preferableAmount)
+            const res = await fetch(`${url}?limit=${preferableAmount}&skip=${this.skip}`)
+            this.skip += preferableAmount
+            this.pages.push(this.pages.length+1)
+            const data = await res.json()
+            this.recipes = data.recipes
+            // TODO: --разделить фетч часть и функцию, ее вызывать на маунте, хотя так не получмится, так как результат из vue setup не импортировать
+            // TODO: тогда сделать функцию с фетч частью еще одну, но не имидиейтли, а по нажатию на страницы в диве из v-for по pages
+        }
     },
     getters: {
 

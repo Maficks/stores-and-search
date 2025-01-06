@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { useRecipesStore } from './stores/RecipesStore'
 import { useSearchStore} from './stores/SeachStore'
-import { ref, onMounted } from 'vue'
+import {ref, onMounted, nextTick} from 'vue'
 
 const recipesStore = useRecipesStore()
 const searchStore = useSearchStore()
 const searchText = ref('')
 const favouriteSearchText = ref('')
 
-onMounted(() => {
-  searchStore.getRecipesImmediately()
+onMounted(async () => {
+  await searchStore.getPaginatedRecipesImmediately()
 })
 </script>
 
@@ -136,6 +136,7 @@ onMounted(() => {
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 header {
   display: flex;
