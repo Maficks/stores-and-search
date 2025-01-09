@@ -19,19 +19,30 @@ onMounted(async () => {
       <img class="logo" src="/logo.jpg" alt="logo" />
       <h2 class="headerText">My favourite recipes</h2>
     </header>
-    <div class="navButtons">
-      <button
-          :class="{'btn-green': recipesStore.activeTab === 1}"
-          @click="recipesStore.setFavouriteTab()"
-      >
-        Favourite
-      </button>
-      <button
-          :class="{'btn-green': recipesStore.activeTab === 2}"
-          @click="recipesStore.setSearchTab()"
-      >
-        Search
-      </button>
+    <div class="navBar">
+      <div class="navButtons">
+        <button
+            :class="{'btn-green': recipesStore.activeTab === 1}"
+            @click="recipesStore.setFavouriteTab()"
+        >
+          Favourite
+        </button>
+        <button
+            :class="{'btn-green': recipesStore.activeTab === 2}"
+            @click="recipesStore.setSearchTab()"
+        >
+          Search
+        </button>
+      </div>
+      <div class="navBarPagination">
+        <button
+            v-for="page of searchStore.pages"
+            @click="searchStore.getPaginatedRecipes(page.page)"
+            :class="{'btn-green': searchStore.currentPage === page.page}"
+        >
+          {{ page.page }}
+        </button>
+      </div>
     </div>
     <div class="main" v-if="recipesStore.activeTab === 1">
       <form class="searchInput">
@@ -164,7 +175,7 @@ header {
   max-width: 1920px;
   margin: 0 auto;
 }
-.navButtons {
+.navBar {
   display: flex;
   justify-content: center;
   margin: 1%;
@@ -213,5 +224,17 @@ button {
 .main {
   width: 100%;
   max-width: 100vw;
+}
+.navBarPagination{
+  display: flex;
+  position: relative;
+  left: 26%;
+  //align-items: flex-end;
+  //justify-content: right;
+}
+.navButtons{
+  position: absolute;
+  display: flex;
+  justify-content: center;
 }
 </style>
