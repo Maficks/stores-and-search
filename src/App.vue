@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRecipesStore } from './stores/RecipesStore'
 import { useSearchStore} from './stores/SeachStore'
-import {ref, onMounted, nextTick} from 'vue'
+import {ref, onMounted} from 'vue'
 
 const recipesStore = useRecipesStore()
 const searchStore = useSearchStore()
@@ -20,6 +20,9 @@ onMounted(async () => {
       <h2 class="headerText">My favourite recipes</h2>
     </header>
     <div class="navBar">
+      <div class="navBarFilters">
+
+      </div>
       <div class="navButtons">
         <button
             :class="{'btn-green': recipesStore.activeTab === 1}"
@@ -142,7 +145,10 @@ onMounted(async () => {
     </div>
   </body>
 </template>
-
+<!-- TODO: попробовать
+.navBarPagination {
+column-gap: clamp(1%, 2vw, 5%);  /* Минимум 1%, идеальное значение 2vw, максимум 5% */
+} -->
 <style scoped>
 body {
   margin: 0;
@@ -176,8 +182,8 @@ header {
   margin: 0 auto;
 }
 .navBar {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 2.5fr;
   margin: 1%;
 }
 .searchInput {
@@ -186,6 +192,7 @@ header {
 }
 button {
   margin: 0 1em;
+  border-radius: 1em;
 }
 .recipe {
   background-color: #fff;
@@ -215,6 +222,19 @@ button {
   .recipes {
     grid-template-columns: repeat(2, 1fr);
   }
+  .navBarPagination {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 50%;
+    column-gap: 7%;
+    right: unset !important;
+  }
+  .navBarPagination > * {
+    padding: 8% !important;
+  }
+  .navButtons {
+    padding: 7%;
+  }
 }
 @media (max-width: 560px) {
   .recipes {
@@ -225,16 +245,57 @@ button {
   width: 100%;
   max-width: 100vw;
 }
-.navBarPagination{
+.navBarPagination {
   display: flex;
   position: relative;
-  left: 26%;
+  right: 2%;
   //align-items: flex-end;
-  //justify-content: right;
+  justify-content: space-around;
 }
-.navButtons{
-  position: absolute;
+.navButtons {
+  position: relative;
   display: flex;
   justify-content: center;
+}
+.navBarFilters {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 1000px) {
+  .navBarPagination {
+    column-gap: 6% !important;
+  }
+}
+.navBarPagination > * {
+  padding: 2.3%;
+  box-shadow: 10px 10px 10px rgb(147, 185, 147);
+  border-radius: 2em;
+}
+@media (max-width: 900px) {
+  .navBarPagination {
+    column-gap: 5% !important;
+  }
+}
+@media (max-width: 800px) {
+  .navBarPagination {
+    column-gap: 2% !important;
+  }
+}
+@media (max-width: 700px) {
+  .navBarPagination {
+    column-gap: 1% !important;
+  }
+}
+.navButtons > * {
+  box-shadow: 10px 10px 10px rgb(147, 185, 147);
+  border-radius: 2em;
+}
+.searchInput > * {
+  box-shadow: 10px 10px 10px rgb(147, 185, 147);
+  border-radius: 1em;
+}
+img {
+  border-radius: 2em;
 }
 </style>
